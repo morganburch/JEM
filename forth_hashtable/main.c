@@ -20,8 +20,11 @@ int main() {
     if (func != NULL) {
         func(stack);
         int top_value;
+        int next_top_value;
         int_stack_top(stack, &top_value);
         printf("Top of stack after dup: %d\n", top_value);
+        int_stack_top(stack, &next_top_value);
+        printf("Check two values: %d\n", next_top_value);
     } else {
         printf("Function not found.\n");
     }
