@@ -35,7 +35,7 @@ token_type_t classify_token(char *text){
     }
 }
 
-
+//need to add something to ignore space characters following last token
     token_t* get_token_stream(FILE *stream){ 
         printf("Type Here: ");
         token_t* tokens = malloc(MAX_TOKENS * sizeof(token_t)); //array to be returned 
@@ -62,7 +62,7 @@ token_type_t classify_token(char *text){
 
                 currToken[strcspn(currToken, "\n")] = 0;
                 
-                printf("{Token: %s\t Type: %s}\n\n", currToken, typeName); //weird format on last currToken
+                //printf("{Token: %s\t Type: %s}\n\n", currToken, typeName); //weird format on last currToken
                 token_count++; 
                 currToken = strtok(NULL, " ");//get next currToken
             }

@@ -34,9 +34,21 @@ add_executable(
         ${TOKEN_SOURCE_DIR}/token.c
 )
 
-
+add_executable( 
+        hash_main
+        hash_main.c 
+        forth_hashtable.c 
+        ${STACK_SOURCE_DIR}/int_stack.c 
+        ${TOKEN_SOURCE_DIR}/token.c
+)
 target_link_libraries(
         main 
         forth_hashtable_lib 
         ${GLIB_PKG_LIBRARIES}
-        )
+)
+
+target_link_libraries(
+        hash_main 
+        forth_hashtable_lib 
+        ${GLIB_PKG_LIBRARIES}
+)
