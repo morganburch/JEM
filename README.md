@@ -1,5 +1,5 @@
 # JEM
-![JEMLogo](../JEMLogo.jpg)
+![JEMLogo](JEMLogo.jpg)
 ## Status
 * Features
     * token directory 
