@@ -1,5 +1,6 @@
 # JEM
-<img src="JEMLogo.jpg" alt="JEMLogo" width="100"/>
+<img src="JEMLogo.jpg" alt="JEMLogo" width="200"/>
+
 ## Status
 * Features
     * token directory 
