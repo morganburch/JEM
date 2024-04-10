@@ -1,5 +1,5 @@
 # JEM
-!JEMLogo (JEMLogo.jpg)
+![JEMLogo](../JEMLogo.jpg)
 ## Status
 * Features
     * token directory 
@@ -11,3 +11,5 @@
     * add support for forth functions
         * conditionals
         * loops/recursion
+
+
