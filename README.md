@@ -1,5 +1,5 @@
 # JEM
-![JEMLogo](JEMLogo.jpg)
+<img src="JEMLogo.jpg" alt="JEMLogo" width="100"/>
 ## Status
 * Features
     * token directory 
