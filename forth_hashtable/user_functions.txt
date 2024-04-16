@@ -1,0 +1,14 @@
+PSUEDOCODE FOR USER FUNCTIONS: 
+
+if currentToken = ":" then save next token in user hashtable as key
+    the value in hashtable should be a stream or array of the following tokens (until ;)
+
+for every token in definition do normal input conditions until...
+if you see a special word, parse the following tokens until the partner word is found (ex: if, then , else)
+    save the tokens as a subtree = top_parse(currPosition, definition)
+    if is boolean -- if the previous value on stack is == to the token after if, continue to then (end)
+        if false, skip to the else and execute those tokens
+    
+
+
+    
