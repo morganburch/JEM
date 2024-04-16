@@ -11,4 +11,20 @@ if you see a special word, parse the following tokens until the partner word is 
     
 
 
-    
+void get_definition(GHashTable* hashtable, char* definition[], int length) {
+    for (int i = 0; i < length; i++) {
+        char* currentToken = definition[i];
+        if (strcmp(currentToken, ":") == 0) {
+            char* key = definition[i + 1]; //next word is function name (key)
+            token_t* value = malloc((length - i - 2) * sizeof(token_t));
+            i += 2;
+            int j = 0;
+            while (strcmp(definition[i], ";") != 0) {
+                value[j] = definition[i];
+                i++;
+                j++;
+            }
+            user_insert(hashtable, key, value);
+        }
+    }
+}
