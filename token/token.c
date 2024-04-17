@@ -45,7 +45,7 @@ token_type_t classify_token(char *text){
         size_t buffsize = 0; //allocated by getline()
         char *typeName = "";
 
-       while(getline(&buffer, &buffsize, stream) !=  -1){ //getline returns -1 when EOF
+       if(getline(&buffer, &buffsize, stream) !=  -1){ //getline returns -1 when EOF
         char *currToken = strtok(buffer, " ");//split stream at each blank space -- " " delimiter
             while(currToken != NULL && token_count < MAX_TOKENS){ 
                 token_type_t type = classify_token(currToken);
