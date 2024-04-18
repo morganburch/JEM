@@ -4,13 +4,15 @@
 ## Status
 * Features
     * token directory 
-    * hashtable directory
     * stack directory 
+    * hashtable directory
     * Linked executable in hashtable main
+    * Semi-functional user interface
 * TODO 
-    * add user interface
+    * constants and variables 
     * add support for forth functions
         * conditionals
         * loops/recursion
+    * debug main
 
 
