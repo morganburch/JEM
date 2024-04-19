@@ -20,6 +20,9 @@ int main() {
 
     for (int i = 0; i < MAX_TOKENS && token_stream[i].text != NULL; i++) {
         token_type_t token_type = classify_token(token_stream[i].text);
+         if (strcmp(token_stream[i].text, "done") == 0) {
+            break;
+        }
         if (token_type == 0){ //int
             int_stack_push(stack, atoi(token_stream[i].text)); //push converted int on stack
             int_stack_print(stack, stdout);

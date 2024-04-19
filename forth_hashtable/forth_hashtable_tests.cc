@@ -1,8 +1,10 @@
 #include <gtest/gtest.h>
 #include <glib.h>
+extern "C" {
 #include "forth_hashtable.h"
 #include "int_stack.h"
 #include "token.h"
+}
 
 TEST(HashtableTests, Initialization)
 {

@@ -34,39 +34,60 @@ token_type_t classify_token(char *text){
         return TOKEN_UNKNOWN;
     }
 }
+#include <regex.h>
 
-//need to add something to ignore space characters following last token
-    token_t* get_token_stream(FILE *stream){ 
-        printf("Type Here: ");
-        token_t* tokens = malloc(MAX_TOKENS * sizeof(token_t)); //array to be returned 
-        int token_count = 0; 
+token_t* get_token_stream(FILE *stream) { 
+    printf("Type Here: ");
+    token_t* tokens = malloc(MAX_TOKENS * sizeof(token_t)); // array to be returned 
+    int token_count = 0; 
 
-        char *buffer = NULL; //hold the line of text read from the stream
-        size_t buffsize = 0; //allocated by getline()
-        char *typeName = "";
+    char *buffer = NULL; // hold the line of text read from the stream
+    size_t buffsize = 0; // allocated by getline()
+    char *typeName = "";
 
-       if(getline(&buffer, &buffsize, stream) !=  -1){ //getline returns -1 when EOF
-        char *currToken = strtok(buffer, " ");//split stream at each blank space -- " " delimiter
-            while(currToken != NULL && token_count < MAX_TOKENS){ 
-                token_type_t type = classify_token(currToken);
+    while (getline(&buffer, &buffsize, stream) != -1) { // getline returns -1 when EOF
+        char *currToken = strtok(buffer, " ");// split stream at each blank space -- " " delimiter
+        
+        while (currToken != NULL && token_count < MAX_TOKENS) { 
+            token_type_t type = classify_token(currToken);
 
-                //add to array to be returned (with value and type)
-                tokens[token_count].type = type;
-                tokens[token_count].text = strdup(currToken);  // Make sure to free this later!
-                
-                if (type == 0){ typeName = "Number";
-                }else if (type == 1){ typeName = "Operation";                
-                }else if (type == 2){ typeName = "Symbol";  
-                }else if (type == 3){ typeName = "String"; 
-                }else{ typeName = "Unknown";} 
-
-                currToken[strcspn(currToken, "\n")] = 0;
-                
-                //printf("{Token: %s\t Type: %s}\n\n", currToken, typeName); //weird format on last currToken
-                token_count++; 
-                currToken = strtok(NULL, " ");//get next currToken
+            // trim trailing spaces from the current token
+            size_t len = strlen(currToken);
+            while (len > 0 && isspace(currToken[len - 1])) {
+                currToken[--len] = '\0';
             }
-       }
-       free(buffer);
-       return tokens;
+
+            // add to array to be returned (with value and type)
+            tokens[token_count].type = type;
+            tokens[token_count].text = strdup(currToken);  // Make sure to free this later!
+                
+            if (type == 0) { 
+                typeName = "Number";
+            } else if (type == 1) { 
+                typeName = "Operation";                
+            } else if (type == 2) { 
+                typeName = "Symbol";  
+            } else if (type == 3) { 
+                typeName = "String"; 
+            } else { 
+                typeName = "Unknown";
+            } 
+
+            // printf("{Token: %s\t Type: %s}\n\n", currToken, typeName); //weird format on last currToken
+            token_count++; 
+            currToken = strtok(NULL, " "); // get next currToken
+        }
+
+        // Free the buffer for next iteration
+        free(buffer);
+        buffer = NULL;
+        buffsize = 0;
+
+        // Return the token stream after processing each line
+        return tokens;
     }
+
+    // Free the buffer if no input is received
+    free(buffer);
+    return NULL;
+}

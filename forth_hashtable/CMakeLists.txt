@@ -52,3 +52,19 @@ target_link_libraries(
         forth_hashtable_lib 
         ${GLIB_PKG_LIBRARIES}
 )
+
+add_executable(
+        forth_hashtable_tests
+        forth_hashtable_tests.cc
+        forth_hashtable.c
+        ${STACK_SOURCE_DIR}/int_stack.c 
+        ${TOKEN_SOURCE_DIR}/token.c
+)
+
+target_link_libraries(
+        forth_hashtable_tests
+        forth_hashtable_lib 
+        gtest_main
+        -lpthread
+        ${GLIB_PKG_LIBRARIES}
+)
