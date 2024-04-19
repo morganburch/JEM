@@ -4,7 +4,7 @@
 #include <token.h>
 
 
-typedef void (*ForthFunction)(int_stack_t *);
+typedef int (*ForthFunction)(int_stack_t *);
 
 //hashtable function prototypes
 extern GHashTable* create();
