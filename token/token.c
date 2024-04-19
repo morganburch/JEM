@@ -34,7 +34,6 @@ token_type_t classify_token(char *text){
         return TOKEN_UNKNOWN;
     }
 }
-#include <regex.h>
 
 token_t* get_token_stream(FILE *stream) { 
     printf("Type Here: ");
