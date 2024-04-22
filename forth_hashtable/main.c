@@ -1,8 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "forth_hashtable.h"
 #include "int_stack.h"
 #include "token.h"
 
+//TODO free token memory after evaluating
 int main() {
     GHashTable* hashtable = create(g_str_hash, g_str_equal);
     add_all_functions(hashtable); 
@@ -19,15 +22,15 @@ int main() {
     int_stack_print(stack, stdout);
 
     for (int i = 0; i < MAX_TOKENS && token_stream[i].text != NULL; i++) {
-        token_type_t token_type = classify_token(token_stream[i].text);
-         if (strcmp(token_stream[i].text, "done") == 0) {
+        token_type_t token_type = token_stream[i].type;
+        if (strcmp(token_stream[i].text, "done") == 0) {
             break;
         }
-        if (token_type == 0){ //int
+        if (token_type == TOKEN_NUM){ //int
             int_stack_push(stack, atoi(token_stream[i].text)); //push converted int on stack
             int_stack_print(stack, stdout);
         }
-        else if (token_type == 1){ //operation
+        else if (token_type == TOKEN_OP){ //operation
             ForthFunction func = lookup(hashtable, token_stream[i].text);
             if (func != NULL) {
                 func(stack);
@@ -36,7 +39,7 @@ int main() {
                 printf("Operation not found.\n");
             }
         }
-        else if (token_type == 3){ //string
+        else if (token_type == TOKEN_STR){ //string
             ForthFunction func = lookup(hashtable, token_stream[i].text);
              if (func != NULL) {
                 func(stack);
@@ -46,6 +49,12 @@ int main() {
             }
         }
     }
+
+    // Free the tokens
+    for (int i = 0; i < MAX_TOKENS && token_stream[i].text != NULL; i++) {
+        free(token_stream[i].text);
+    }
+    free(token_stream);
 
     destroy(hashtable);
     free(stack);
