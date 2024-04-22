@@ -24,9 +24,26 @@ Constants:
  //if curr token = constant then
  //if no int on stack before constant, stack underflow/error
  //remember to pass next token as key when calling this method
+ /*
 int add_constant(int_stack_t* stk, GHashTable* hashtable, const char* key){ 
-    int value;
-    int_stack_pop(stk, &value);
-    //add to user hashtable
-    //user_insert(hashtable, key, (token_t) value); 
+    int val;
+    int_stack_pop(stk, &val);
+    char char_val = (char)val;
+    token_t* token_stream = classify_token(char_val);
+    user_insert(hashtable, key, token_stream);
+}
+*/
+int add_constant(int_stack_t* stk, GHashTable* hashtable, const char* key) {
+    int val;
+    char char_val = (char) val;
+
+    //making a char stream to pass to classify token since cant do just one char
+    char* char_stream = (char*) malloc(2 * sizeof(char)); 
+    char_stream[0] = char_val;
+    char_stream[1] = '\0'; // Null-terminate the string
+    
+    token_t token_stream = classify_token(char_stream);
+    
+    free(char_stream); 
+    return 0; // Indicate success
 }
