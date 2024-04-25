@@ -2,12 +2,13 @@
 #include "forth_hashtable.h"
 #include "int_stack.h"
 #include "token.h"
+#include "forth_const_variables.h"
 
 int main() {
     //takes string and ForthFunction
     GHashTable* hashtable = create(g_str_hash, g_str_equal);
     add_all_functions(hashtable);
-    
+
     //takes string and token_t*
     GHashTable* user_hashtable = create(g_str_hash, g_str_equal);
 
@@ -45,6 +46,15 @@ int main() {
                 //call add_constant() with the next token as the key
                 add_constant(stack, hashtable, token_stream[i+1]);
                 i++; //skip next token 
+
+                // Retrieve the constant from the hashtable
+                int constant = GPOINTER_TO_INT(g_hash_table_lookup(hashtable, token_stream[i]));
+
+                int val;
+                int_stack_pop(stack, &val); //get last val from stack
+                val *= constant;
+                int_stack_push(stack, val); //push the result back to the stack
+                int_stack_print(stack, stdout); 
             } else {
                 printf("Error: No key provided after 'constant'\n");
             }
@@ -54,8 +64,9 @@ int main() {
     for(int i = 0; i < 3; i++) {
         free(token_stream[i]);
     }
-    destroy(hashtable);
-    free(stack);
 
-    return 0;
-}
+        destroy(hashtable);
+        free(stack);
+
+        return 0;
+    }

@@ -56,6 +56,7 @@ add_executable(
         hash_main
         hash_main.c 
         forth_hashtable.c 
+        forth_const_variables.c
         ${STACK_SOURCE_DIR}/int_stack.c 
         ${TOKEN_SOURCE_DIR}/token.c
 )
