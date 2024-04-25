@@ -1,7 +1,7 @@
 # JEM
-<div style="text-align: center;">
-    <img src="JEMLogo.jpg" alt="JEMLogo" width="200"/>
-</div>
+<p align="center">
+  <img src="JEMLogo.jpg" alt="JEMLogo" width="200"/>
+</p>
 
 ## Project Status
 * Features
