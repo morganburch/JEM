@@ -1,5 +1,7 @@
 # JEM
-<img src="JEMLogo.jpg" alt="JEMLogo" width="200"/>
+<div style="text-align: center;">
+    <img src="JEMLogo.jpg" alt="JEMLogo" width="200"/>
+</div>
 
 ## Project Status
 * Features
