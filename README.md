@@ -1,18 +1,19 @@
 # JEM
 <img src="JEMLogo.jpg" alt="JEMLogo" width="200"/>
 
-## Status
+## Project Status
 * Features
-    * token directory 
-    * stack directory 
-    * hashtable directory
-    * Linked executable in hashtable main
-    * Semi-functional user interface
+    * Token Directory: Contains functionality related to parsing and processing tokens.
+    * Stack Directory: Includes operations for stack manipulation.
+    * Hashtable Directory: Implements hashtable data structure and operations.
+    * Linked Executable in Hashtable Main: Executable linked with the main file in the hashtable directory.
+    * Support for Constants: Implementation to handle constants in Forth.
+    * Semi-Functional User Interface: Basic user interface functionality is implemented.
 * TODO 
-    * constants and variables 
-    * add support for forth functions
+    * Variables: add variable functions to hashtable
+    * Add support for forth functions
         * conditionals
         * loops/recursion
-    * debug main
+    * Debug main
 
 
