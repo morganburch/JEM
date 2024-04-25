@@ -35,11 +35,12 @@ void add_all_functions(GHashTable* hashtable) {
     insert(hashtable, "2drop", (ForthFunction)int_stack_2drop);
     insert(hashtable, "over", (ForthFunction)int_stack_over);
     insert(hashtable, "2over", (ForthFunction)int_stack_2over);
+    //TODO add constant and variable to hashtable 
 }
 
 // user hashtable
-void user_insert(GHashTable* hashtable, const char* key, token_t* tokens) {
-    g_hash_table_insert(hashtable, (gpointer)key, tokens);
+void user_insert(GHashTable* hashtable, const char* key, int value) {
+    g_hash_table_insert(hashtable, (gpointer)key, GINT_TO_POINTER(value));
 }
 
 token_t* user_lookup(GHashTable* hashtable, const char* key) {

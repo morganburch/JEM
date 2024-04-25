@@ -4,8 +4,12 @@
 #include "token.h"
 
 int main() {
+    //takes string and ForthFunction
     GHashTable* hashtable = create(g_str_hash, g_str_equal);
     add_all_functions(hashtable);
+    
+    //takes string and token_t*
+    GHashTable* user_hashtable = create(g_str_hash, g_str_equal);
 
     if (hashtable == NULL) {
         printf("Error: Could not create hashtable.\n");
@@ -27,6 +31,29 @@ int main() {
         printf("Function not found.\n");
     }
 
+    int_stack_push(stack, 42);
+    int_stack_push(stack, 2);
+
+    char* token_stream[3]; 
+    token_stream[0] = strdup("constant"); 
+    token_stream[1] = strdup("practice"); 
+    token_stream[2] = strdup("*");
+
+    for(int i = 0; i < 3; i++) {
+        if(strcmp(token_stream[i], "constant") == 0) {
+            if(i+1 < 3) {
+                //call add_constant() with the next token as the key
+                add_constant(stack, hashtable, token_stream[i+1]);
+                i++; //skip next token 
+            } else {
+                printf("Error: No key provided after 'constant'\n");
+            }
+        }
+    }
+
+    for(int i = 0; i < 3; i++) {
+        free(token_stream[i]);
+    }
     destroy(hashtable);
     free(stack);
 

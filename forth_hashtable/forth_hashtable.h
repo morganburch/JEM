@@ -12,5 +12,5 @@ extern void destroy(GHashTable* hashtable);
 extern void add_all_functions(GHashTable* hashtable);
 extern void insert(GHashTable* hashtable, const char* key, ForthFunction func);
 extern ForthFunction lookup(GHashTable* hashtable, const char* key);
-extern void user_insert(GHashTable* hashtable, const char* key, token_t* tokens);
+extern void user_insert(GHashTable* hashtable, const char* key, int value);
 extern token_t* user_lookup(GHashTable* hashtable, const char* key);
