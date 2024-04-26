@@ -49,12 +49,20 @@ token_t* get_token_stream(FILE *stream) {
 
     while (getline(&buffer, &buffsize, stream) != -1) { // getline returns -1 when EOF
         char *currToken = strtok(buffer, " "); // split stream at each blank space -- " " delimiter
+        if(strcmp(currToken, "stop") == 0) {
+                free(buffer);
+                return tokens;
+        }
         
         while (currToken != NULL && token_count < MAX_TOKENS) { 
-            token_t token = classify_token(currToken);
+            char *tokenText = malloc((strlen(currToken) + 1) * sizeof(char));
+            strcpy(tokenText, currToken);
+            
+            token_t token = classify_token(tokenText);
+
 
             // trim trailing spaces from the current token
-            size_t len = strlen(currToken);
+            size_t len = strlen(token.text);
             while (len > 0 && isspace(currToken[len - 1])) {
                 currToken[--len] = '\0';
             }
@@ -62,21 +70,18 @@ token_t* get_token_stream(FILE *stream) {
             // add to array to be returned (with value and type)
             tokens[token_count] = token;
                 
-            // printf("{Token: %s\t Type: %s}\n\n", currToken, typeName); //weird format on last currToken
+            //printf("{Token: %s\t Type: %d}\n\n", token.text, token.type);  //weird format on last currToken
             token_count++; 
             currToken = strtok(NULL, " "); // get next currToken
         }
 
-        // Free the buffer for next iteration
-        free(buffer);
         buffer = NULL;
         buffsize = 0;
 
         // Return the token stream after processing each line
-        return tokens;
     }
 
     // Free the buffer if no input is received
     free(buffer);
-    return NULL;
+    return tokens;
 }

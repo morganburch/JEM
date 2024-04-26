@@ -50,14 +50,12 @@ int main() {
         }
     }
 
-    // Free the tokens
+    //Free the tokens
     for (int i = 0; i < MAX_TOKENS && token_stream[i].text != NULL; i++) {
         free(token_stream[i].text);
     }
     free(token_stream);
-
     destroy(hashtable);
     free(stack);
-
     return 0;
 }
