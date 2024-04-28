@@ -35,6 +35,8 @@ void add_all_functions(GHashTable* hashtable) {
     insert(hashtable, "2drop", (ForthFunction)int_stack_2drop);
     insert(hashtable, "over", (ForthFunction)int_stack_over);
     insert(hashtable, "2over", (ForthFunction)int_stack_2over);
+    //insert(hashtable, "variable", );
+    //insert(hashtable, "constant", );
     //TODO add constant and variable to hashtable 
 }
 

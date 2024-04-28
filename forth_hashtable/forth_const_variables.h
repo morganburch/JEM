@@ -8,6 +8,6 @@
 
 
 int add_constant(int_stack_t* stk, GHashTable* hashtable, const char* key);
-int add_variable(int_stack_t stk, GHashTable* hashtable, const char* key);
+int add_variable(int_stack_t* stk, GHashTable* hashtable, const char* key, token_t next_token);
 
 #endif

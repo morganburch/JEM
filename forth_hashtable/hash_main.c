@@ -54,6 +54,7 @@ int main() {
                 int_stack_pop(stack, &val); //get last val from stack
                 val *= constant;
                 int_stack_push(stack, val); //push the result back to the stack
+                printf("Adding constant value 84: \n");
                 int_stack_print(stack, stdout); 
             } else {
                 printf("Error: No key provided after 'constant'\n");

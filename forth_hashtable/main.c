@@ -4,6 +4,8 @@
 #include "forth_hashtable.h"
 #include "int_stack.h"
 #include "token.h"
+#include "forth_const_variables.h"
+
 
 //TODO free token memory after evaluating
 int main() {
@@ -25,12 +27,16 @@ int main() {
         token_type_t token_type = token_stream[i].type;
         if (strcmp(token_stream[i].text, "done") == 0) {
             break;
-        }
-        if (token_type == TOKEN_NUM){ //int
+        }else if(strcmp(token_stream[i].text, "constant") == 0){ 
+            add_constant(stack, hashtable, token_stream[i+1].text);
+            i++; // Skip next token because it's the constant name
+        }else if (strcmp(token_stream[i].text, "variable") == 0){ 
+            add_variable(stack, hashtable, token_stream[i+1].text, token_stream[i+2]);
+            i += 2; // Skip next two tokens because they're the variable name and the next token
+        }else if (token_type == TOKEN_NUM){ //int
             int_stack_push(stack, atoi(token_stream[i].text)); //push converted int on stack
             int_stack_print(stack, stdout);
-        }
-        else if (token_type == TOKEN_OP){ //operation
+        }else if (token_type == TOKEN_OP){ //operation
             ForthFunction func = lookup(hashtable, token_stream[i].text);
             if (func != NULL) {
                 func(stack);
@@ -38,8 +44,7 @@ int main() {
             } else {
                 printf("Operation not found.\n");
             }
-        }
-        else if (token_type == TOKEN_STR){ //string
+        }else if (token_type == TOKEN_STR){ //string
             ForthFunction func = lookup(hashtable, token_stream[i].text);
              if (func != NULL) {
                 func(stack);
