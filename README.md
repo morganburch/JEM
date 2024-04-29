@@ -13,13 +13,12 @@
     * Hashtable Directory: Implements hashtable data structure and operations.
     * Linked Executable in Hashtable Main: Executable linked with the main file in the hashtable directory.
     * Support for Constants: Implementation to handle constants in Forth.
-    * Semi-Functional User Interface: Basic user interface functionality is implemented.
+    * Partial User Interface: Basic user interface functionality is implemented.
+
 * TODO 
-    * Variables: add variable functions to hashtable
     * Add support for forth functions
         * conditionals
         * loops/recursion
-    * Debug main
 
 ## Contributors: 
 * Jazmin Camacho, Emma McBride, Morgan Burch
