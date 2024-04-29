@@ -4,12 +4,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> //for strtok
+#define TOKEN_EMPTY -1
 
 token_t classify_token(char *text){ 
     int i; 
     int isNum = 1, isStr = 1, isOp = 1, isSym = 1; //assume true, set to false in loop
     token_t token;
 
+    for (i = 0; i < strlen(text); i++) {
+        if (!isspace(text[i])) {
+            break;
+        }
+    }
+    if (i == strlen(text)) { // If the token is all whitespace
+        token.type = TOKEN_EMPTY;
+        token.text = text;
+        return token;
+    }
     for(i=0; i < strlen(text); i++){ 
         if (text[i] == '\n') continue; //ignore newline bc strtok automatically adds one
         if (!isalpha(text[i])){ 
@@ -48,6 +59,9 @@ token_t* get_token_stream(FILE *stream) {
     size_t buffsize = 0; // allocated by getline()
 
     while (getline(&buffer, &buffsize, stream) != -1) { // getline returns -1 when EOF
+        buffer = realloc(buffer, buffsize + 2);
+        strcat(buffer, " "); //add whitespace to the end of input string so strtok recognizes last token
+
         char *currToken = strtok(buffer, " "); // split stream at each blank space -- " " delimiter
         if(strcmp(currToken, "stop") == 0) {
                 free(buffer);
@@ -60,7 +74,11 @@ token_t* get_token_stream(FILE *stream) {
             
             token_t token = classify_token(tokenText);
 
-
+             if (token.type == TOKEN_EMPTY) {
+            free(tokenText);
+            currToken = strtok(NULL, " ");
+            continue;
+        }
             // trim trailing spaces from the current token
             size_t len = strlen(token.text);
             while (len > 0 && isspace(currToken[len - 1])) {
@@ -79,6 +97,7 @@ token_t* get_token_stream(FILE *stream) {
         buffsize = 0;
 
         // Return the token stream after processing each line
+        return tokens;
     }
 
     // Free the buffer if no input is received
