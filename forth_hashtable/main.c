@@ -6,8 +6,11 @@
 #include "token.h"
 #include "forth_const_variables.h"
 
+/* Main Executable: 
+- links token_stream, int_stack operations, and hashtable implementation to process
+forth words and execute them on the stack. 
+*/
 
-//TODO free token memory after evaluating
 int main() {
     GHashTable* hashtable = create(g_str_hash, g_str_equal);
     add_all_functions(hashtable); 
